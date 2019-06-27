@@ -11,14 +11,14 @@ const changeMovie = createAction<number>("changeChosenMovie_saga");
 const addToFavorites = createAction<IMovie>("add_movie_to_favorites_saga");
 const removeMovie = createAction<number>("remove_movie_from_favorites_saga");
 
-const moviesLoadedReducer = createAction("fetch_movie_success_reducer");
+const moviesLoadedReducer = createAction<IMovie[]>("fetch_movie_success_reducer");
 const moviesRequestedReducer = createAction("fetch_movie_request_reducer");
-const changeCurrentPageReducer = createAction("changeCurrentPage_reducer");
-const changePagesCountReducer = createAction("change_pages_count_reducer");
-const moviesErrorReducer = createAction("fetch_movie_failure_reducer");
-const changeMovieReducer = createAction("changeChosenMovie_reducer");
-const addToFavoritesReducer = createAction("add_movie_to_favorites_reducer");
-const removeMovieReducer = createAction("remove_movie_from_favorites_reducer");
+const changeCurrentPageReducer = createAction<number>("changeCurrentPage_reducer");
+const changePagesCountReducer = createAction<number>("change_pages_count_reducer");
+const moviesErrorReducer = createAction<any>("fetch_movie_failure_reducer");
+const changeMovieReducer = createAction<number>("changeChosenMovie_reducer");
+const addToFavoritesReducer = createAction<IMovie>("add_movie_to_favorites_reducer");
+const removeMovieReducer = createAction<number>("remove_movie_from_favorites_reducer");
 
 export {
   fetchMovies,

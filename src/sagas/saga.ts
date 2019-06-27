@@ -1,12 +1,13 @@
+import { AnyAction } from "redux";
 import {
-    takeLatest, takeEvery, call, all, put,
-  } from 'redux-saga/effects';
-  import * as actions from '../redux/actions';
-  import MovieService from '../services/movie-service';
-  
-  const moviesService = new MovieService();
-  
-  function* fetch({ payload }) {
+    all, call, put, takeEvery, takeLatest,
+  } from "redux-saga/effects";
+import * as actions from "../redux/actions";
+import MovieService from "../services/movie-service";
+
+const moviesService = new MovieService();
+
+function* fetch({ payload }: AnyAction) {
     try {
       yield put(actions.moviesRequested());
       const data = yield call(moviesService.getOneMoviePage, payload);
@@ -17,41 +18,40 @@ import {
       yield actions.moviesError(e);
     }
   }
-  
-  function* requestMovies() {
+
+function* requestMovies() {
     yield put(actions.moviesRequestedReducer());
   }
-  
-  function* loadedMovies({ payload }) {
+
+function* loadedMovies({ payload }: AnyAction) {
     yield put(actions.moviesLoadedReducer(payload));
   }
-  
-  function* changePage({ payload }) {
+
+function* changePage({ payload }: AnyAction) {
     yield put(actions.changeCurrentPageReducer(payload));
   }
-  
-  function* changePageCount({ payload }) {
+
+function* changePageCount({ payload }: AnyAction) {
     yield put(actions.changePagesCountReducer(payload));
   }
-  
-  function* errorMovies({ payload }) {
+
+function* errorMovies({ payload }: AnyAction) {
     yield put(actions.moviesErrorReducer(payload));
   }
-  
-  function* changeMovieId({ payload }) {
+
+function* changeMovieId({ payload }: AnyAction) {
     yield put(actions.changeMovieReducer(payload));
   }
-  
-  function* makeFavorite({ payload }) {
+
+function* makeFavorite({ payload }: AnyAction) {
     yield put(actions.addToFavoritesReducer(payload));
   }
-  
-  function* removeFromFavorites({ payload }) {
+
+function* removeFromFavorites({ payload }: AnyAction) {
     yield put(actions.removeMovieReducer(payload));
   }
-  
-  
-  export default function* movies() {
+
+export default function* movies() {
     yield all([
       takeLatest(actions.fetchMovies, fetch),
       takeLatest(actions.moviesRequested, requestMovies),
@@ -64,4 +64,3 @@ import {
       takeEvery(actions.removeMovie, removeFromFavorites),
     ]);
   }
-  
