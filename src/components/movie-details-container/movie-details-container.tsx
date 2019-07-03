@@ -19,7 +19,7 @@ interface IMethods {
   checkIsFavorite(movie: IMovie): void;
 }
 
-class MovieDetailsContainer extends Component<IProps, IMethods> {
+class MovieDetailsContainer extends Component<IProps> implements IMethods {
   public onNextClick = () => {
     const { changeMovieAction, currentMovieId } = this.props;
     const movies = this.returnArr();

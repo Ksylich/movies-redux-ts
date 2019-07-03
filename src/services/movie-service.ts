@@ -1,10 +1,12 @@
 import axios from "axios";
 
-require("dotenv").config();
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export default class MovieService {
    public getOneMoviePage = async (page: number) => {
-     try {
+    try {
       const res = await axios.get(`${process.env.REACT_APP_API_BASE}/now_playing?${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`);
       return {
         movies: res.data.results.map(this.transformMovie),

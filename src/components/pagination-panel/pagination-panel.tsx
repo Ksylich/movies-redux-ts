@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import noop from "lodash/noop";
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
@@ -14,12 +15,12 @@ interface IProps {
   fetchMoviesAction: typeof fetchMovies;
 }
 
-interface IFunctions {
+interface IMethods {
   renderPageNumbers: (pages: number[]) => void;
-  renderPageButton: (pageNumber: number) => Component;
+  renderPageButton: (pageNumber: number) => JSX.Element;
 }
 
-class PaginationPanel extends Component<IProps, IFunctions> {
+class PaginationPanel extends Component<IProps> implements IMethods {
 
   public renderPagBegin = () => {
     const { currentPage, fetchMoviesAction } = this.props;
@@ -64,7 +65,7 @@ class PaginationPanel extends Component<IProps, IFunctions> {
     return (
       <Fragment>
         {prefPages.length > pageCount ? (
-          <PaginationItem title="..." onHandleChangePage={() => { }} />
+          <PaginationItem title="..." onHandleChangePage={noop} />
         ) : null}
         {this.renderPageNumbers(pref)}
         <PaginationItem
@@ -76,7 +77,7 @@ class PaginationPanel extends Component<IProps, IFunctions> {
         />
         {this.renderPageNumbers(after)}
         {afterPages.length > pageCount ? (
-          <PaginationItem title="..." onHandleChangePage={() => { }} />
+          <PaginationItem title="..." onHandleChangePage={noop} />
         ) : null}
       </Fragment>
     );

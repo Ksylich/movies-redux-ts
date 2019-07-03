@@ -1,35 +1,39 @@
+import classNames from "classnames";
 import React, { useCallback } from "react";
 import { Link } from "react-router-dom";
 
 import "./movie-card-item.css";
 
-import NoPoster from "../../assets/icons/NoPoster.jpg";
+import Poster from "../poster";
 
 interface IProps {
-  movie: { id: number, title: string, posterPath: string };
+  movie: { id: number; title: string; posterPath: string };
   idx: number;
   onHandleChooseMovie: (event: any) => void;
 }
 
-const MovieCardItem = ({ movie, idx, onHandleChooseMovie }: IProps) => {
+const MovieCardItem: React.FC<IProps> = ({ movie, idx, onHandleChooseMovie }) => {
   const { title, posterPath } = movie;
 
   const style = `crd crd-${idx}`;
 
-  const poster = posterPath || NoPoster;
+  const chooseMovie = useCallback(() => {
+    onHandleChooseMovie(movie.id);
+  }, [movie.id, onHandleChooseMovie]);
 
-  const chooseMovie = useCallback(
-    () => {
-      onHandleChooseMovie(movie.id);
-    },
-    [movie.id, onHandleChooseMovie],
-  );
+  const stl = classNames("card-img-top");
 
   return (
-    <div className={style} data-title={title} role="presentation" onClick={chooseMovie}>
+    <div
+      className={style}
+      data-title={title}
+      role="presentation"
+      onClick={chooseMovie}
+    >
       <Link className="lnk" to="/movie-details-page">
-        <img src={poster} alt="" className="card-img-top" />
+        <Poster posterPath={posterPath} style={stl} />
       </Link>
+
     </div>
   );
 };

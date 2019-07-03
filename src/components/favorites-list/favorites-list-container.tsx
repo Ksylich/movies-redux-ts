@@ -16,8 +16,7 @@ interface IMethod {
   onHandleRemoveMovie: (id: number) => void;
 }
 
-class FavoritesListContainer extends Component<IProps, IMethod>  {
-
+class FavoritesListContainer extends Component<IProps> implements IMethod  {
   public onHandleRemoveMovie = (id: number) => {
     const { removeMovieAction } = this.props;
     removeMovieAction(id);

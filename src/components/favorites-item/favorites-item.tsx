@@ -12,7 +12,7 @@ interface IProps {
   onHandleChooseMovie: (event: any) => void;
 }
 
-const FavoriteItem = ({ movie, onHandleRemoveMovie, onHandleChooseMovie }: IProps) => {
+const FavoriteItem: React.FC<IProps> = ({ movie, onHandleRemoveMovie, onHandleChooseMovie }) => {
   const poster = movie.posterPath || NoPoster;
 
   const chooseMovie = useCallback(
